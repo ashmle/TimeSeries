@@ -1,22 +1,26 @@
-FROM jupyter/<notebook>:<version hash>
+FROM jupyter/scipy-notebook:17aba6048f44
 
 #Set the working directory
-WORKDIR /home/jovyan/
+WORKDIR /home/test/
+
+USER root
+RUN apt-get update \
+	&& apt-get install r-base -y
 
 # Modules
-COPY requirements.txt /home/jovyan/requirements.txt
-RUN pip install -r /home/jovyan/requirements.txt
+COPY requirements.txt /home/test/requirements.txt
+RUN pip install -r /home/test/requirements.txt
 
 # Add files
-COPY notebooks /home/jovyan/notebooks
-COPY data /home/jovyan/data
-COPY solutions /home/jovyan/solutions
+COPY notebooks /home/test/notebooks
+COPY data /home/test/data
+COPY solutions /home/test/solutions
 
 # Allow user to write to directory
 USER root
-RUN chown -R $NB_USER /home/jovyan \
-    && chmod -R 774 /home/jovyan \
-    && rm -fR /home/jovyan/work 
+RUN chown -R $NB_USER /home/test \
+    && chmod -R 774 /home/test \
+    && rm -fR /home/test/work 
 USER $NB_USER
 
 # Expose the notebook port

@@ -1,0 +1,2 @@
+include ts_profiling/*.mplstyle
+include ts_profiling/templates/*.html

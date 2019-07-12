@@ -1,3 +1,6 @@
 ## Please list additional packages with version numbers
 gluonts==0.2.3
 rpy2==2.9.5
+plotly
+stldecompose
+fbprophet

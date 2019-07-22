@@ -1,7 +1,7 @@
 FROM jupyter/scipy-notebook:17aba6048f44
 
 #Set the working directory
-WORKDIR /home/test/
+WORKDIR /home/jovyan/
 
 USER root
 RUN apt-get update \
@@ -10,23 +10,23 @@ RUN apt-get update \
     && R -e 'install.packages(c("forecast", "nnfor"), repos="https://cloud.r-project.org")'
 
 # Modules
-COPY requirements.txt /home/test/requirements.txt
-RUN pip install -r /home/test/requirements.txt
+COPY requirements.txt /home/requirements.txt
+RUN pip install -r /home//requirements.txt
 
-COPY ts-profiling /home/test/ts-profiling
-RUN cd /home/test/ts-profiling && \
+COPY ts-profiling /home/ts-profiling
+RUN cd /home/ts-profiling && \
     python ./setup.py install
 
 # Add files
-COPY notebooks /home/test/notebooks
-COPY data /home/test/data
-COPY solutions /home/test/solutions
+COPY notebooks /home/jovyan/notebooks
+COPY data /home/jovyan/data
+#COPY solutions /home/jovyan/solutions
 
 # Allow user to write to directory
 USER root
-RUN chown -R $NB_USER /home/test \
-    && chmod -R 774 /home/test \
-    && rm -fR /home/test/work 
+RUN chown -R $NB_USER /home/jovyan \
+    && chmod -R 774 /home/jovyan \
+    && rm -fR /home/jovyan/work 
 USER $NB_USER
 
 # Expose the notebook port

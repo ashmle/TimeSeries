@@ -26,7 +26,7 @@ COPY postBuild /home/jovyan/postBuild
 USER root
 RUN chown -R $NB_USER /home/jovyan \
     && chmod -R 774 /home/jovyan \
-    && rm -fR /home/jovyan/work 
+    && rm -fR /home/jovyan/work \
     && /home/jovyan/postBuild
 USER $NB_USER
 
